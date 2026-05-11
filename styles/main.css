@@ -61,6 +61,32 @@ ul { list-style: none; }
   --radius-full: 999px;
 }
 
+/* ---------- Custom Scrollbar ---------- */
+/* Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mauve);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--cream);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wine);
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mauve) var(--cream);
+}
+
 /* ---------- Typography ---------- */
 h1, h2, h3 {
   font-family: 'Playfair Display', serif;
