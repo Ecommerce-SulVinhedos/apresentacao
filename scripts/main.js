@@ -180,4 +180,49 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('scroll', animateChatMessages, { passive: true });
   animateChatMessages();
 
+  // ---------- Lightbox for Screenshots ----------
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Clickable mockup frames
+  document.querySelectorAll('[data-lightbox]').forEach(function (frame) {
+    frame.addEventListener('click', function () {
+      var img = this.querySelector('.mockup-screenshot');
+      if (img) openLightbox(img.src, img.alt);
+    });
+  });
+
+  // Button triggers (Ver Dashboard / Conhecer o Painel)
+  document.querySelectorAll('[data-lightbox-trigger]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var src = this.getAttribute('data-lightbox-trigger');
+      openLightbox(src, '');
+    });
+  });
+
+  lightbox.addEventListener('click', function (e) {
+    if (e.target !== lightboxImg) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+
 });

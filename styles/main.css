@@ -713,82 +713,312 @@ textarea:focus-visible {
 
 .mockup-screenshot {
   width: 100%;
+  height: auto;
   display: block;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  object-fit: cover;
+  object-position: top left;
+  max-height: 380px;
+  cursor: zoom-in;
+  transition: filter 0.2s ease;
+}
+
+/* Clickable mockup frame */
+.mockup-clickable {
+  position: relative;
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mockup-clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 70px rgba(100, 19, 47, 0.2);
+}
+
+.mockup-clickable:hover .mockup-screenshot {
+  filter: brightness(1.05);
+}
+
+.mockup-zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(69, 11, 31, 0.85);
+  color: var(--cream);
+  padding: 8px 14px;
+  border-radius: var(--radius-btn);
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.mockup-zoom-hint svg {
+  width: 14px;
+  height: 14px;
+}
+
+.mockup-clickable:hover .mockup-zoom-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Lightbox ---------- */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  cursor: zoom-out;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+
+.lightbox-overlay.active .lightbox-img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 2.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+}
+
+.lightbox-close:hover {
+  color: #fff;
+  transform: scale(1.15);
 }
 
 .mockup-content {
-  padding: 20px;
-  min-height: 300px;
-}
-
-/* Admin mockup */
-.mockup-admin {
+  padding: 0;
+  min-height: 340px;
   display: flex;
-  gap: 16px;
 }
 
+/* --- Sidebar (shared) --- */
 .mockup-sidebar {
-  width: 56px;
+  width: 64px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 4px;
-  background: #f9f9f9;
-  border-radius: 8px;
+  gap: 6px;
+  padding: 12px 8px;
+  background: var(--wine-dark);
+  flex-shrink: 0;
+}
+
+.mockup-sidebar-logo {
+  height: 14px;
+  width: 36px;
+  background: rgba(255, 238, 224, 0.4);
+  border-radius: 3px;
+  margin-bottom: 8px;
 }
 
 .mockup-sidebar-item {
   height: 10px;
-  background: #e0e0e0;
-  border-radius: 4px;
+  background: rgba(255, 238, 224, 0.15);
+  border-radius: 6px;
 }
 
 .mockup-sidebar-item.active {
-  background: var(--wine);
+  background: rgba(255, 255, 255, 0.2);
 }
 
+.mockup-sidebar-user {
+  margin-top: auto;
+  height: 10px;
+  background: rgba(255, 238, 224, 0.12);
+  border-radius: 6px;
+}
+
+/* Casa sidebar variant */
+.mockup-sidebar-casa {
+  gap: 5px;
+}
+
+.mockup-sidebar-casa-name {
+  height: 8px;
+  width: 40px;
+  background: rgba(255, 238, 224, 0.25);
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+/* --- Main area (shared) --- */
 .mockup-main {
   flex: 1;
+  padding: 16px;
+  overflow: hidden;
 }
 
+.mockup-page-title {
+  height: 12px;
+  width: 100px;
+  background: #ddd;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+
+/* --- Stat cards row --- */
 .mockup-stats-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
 }
 
 .mockup-stat-box {
-  flex: 1;
-  height: 56px;
-  background: linear-gradient(135deg, rgba(100, 19, 47, 0.08), rgba(100, 19, 47, 0.03));
-  border-radius: 8px;
-  border: 1px solid rgba(100, 19, 47, 0.1);
+  height: 52px;
+  background: var(--white);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   position: relative;
   overflow: hidden;
+}
+
+.mockup-stat-box::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 55%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
 }
 
 .mockup-stat-box::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
+  bottom: 10px;
+  left: 10px;
+  height: 10px;
+  width: 40%;
   background: var(--wine);
-  border-radius: 0 0 8px 8px;
+  border-radius: 3px;
+  opacity: 0.7;
 }
 
-.mockup-stat-box:nth-child(1)::after { width: 70%; }
-.mockup-stat-box:nth-child(2)::after { width: 45%; background: var(--sage); }
-.mockup-stat-box:nth-child(3)::after { width: 85%; background: var(--mauve); }
+.mockup-stat-box:nth-child(2)::after { width: 30%; background: var(--sage-dark); }
+.mockup-stat-box:nth-child(3)::after { width: 20%; background: var(--mauve); }
+.mockup-stat-box:nth-child(4)::after { width: 35%; background: var(--wine); }
 
-.mockup-chart {
-  height: 100px;
-  background: linear-gradient(to top, rgba(170, 200, 133, 0.2), rgba(170, 200, 133, 0.02));
-  border-radius: 8px;
+/* Casa stat variant */
+.mockup-stat-casa::after {
+  background: var(--sage-dark) !important;
+}
+.mockup-stat-casa:nth-child(1)::after { background: var(--wine) !important; }
+.mockup-stat-casa:nth-child(3)::after { background: #c0392b !important; opacity: 0.5; }
+.mockup-stat-casa:nth-child(4)::after { background: var(--mauve) !important; }
+
+/* --- Body grid (table + sidebar) --- */
+.mockup-body-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+.mockup-section-title {
+  height: 8px;
+  width: 80px;
+  background: #d0d0d0;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+/* --- Table --- */
+.mockup-table {
+  background: var(--white);
+  border-radius: 10px;
   border: 1px solid var(--border);
-  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.mockup-table-header {
+  height: 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid var(--border);
+}
+
+.mockup-table-row {
+  height: 16px;
+  border-bottom: 1px solid #f5f5f5;
+  position: relative;
+}
+
+.mockup-table-row::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 5px;
+  background: #eee;
+  border-radius: 2px;
+}
+
+.mockup-table-row:nth-child(even)::before { width: 40%; }
+
+.mockup-table-row::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20%;
+  height: 5px;
+  background: rgba(100, 19, 47, 0.1);
+  border-radius: 2px;
+}
+
+.mockup-table-row:last-child {
+  border-bottom: none;
+}
+
+/* --- Chart --- */
+.mockup-chart {
+  height: 100%;
+  min-height: 80px;
+  background: var(--white);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   position: relative;
   overflow: hidden;
 }
@@ -799,99 +1029,114 @@ textarea:focus-visible {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60%;
+  height: 70%;
   background:
     linear-gradient(90deg,
-      transparent 0%, transparent 8%,
-      rgba(170, 200, 133, 0.25) 8%, rgba(170, 200, 133, 0.25) 14%,
-      transparent 14%, transparent 22%,
-      rgba(170, 200, 133, 0.35) 22%, rgba(170, 200, 133, 0.35) 28%,
-      transparent 28%, transparent 36%,
-      rgba(170, 200, 133, 0.2) 36%, rgba(170, 200, 133, 0.2) 42%,
-      transparent 42%, transparent 50%,
-      rgba(170, 200, 133, 0.45) 50%, rgba(170, 200, 133, 0.45) 56%,
-      transparent 56%, transparent 64%,
-      rgba(170, 200, 133, 0.3) 64%, rgba(170, 200, 133, 0.3) 70%,
-      transparent 70%, transparent 78%,
-      rgba(170, 200, 133, 0.55) 78%, rgba(170, 200, 133, 0.55) 84%,
-      transparent 84%, transparent 92%,
-      rgba(170, 200, 133, 0.4) 92%, rgba(170, 200, 133, 0.4) 98%,
-      transparent 98%
+      transparent 0%, transparent 6%,
+      rgba(170, 200, 133, 0.2) 6%, rgba(170, 200, 133, 0.2) 11%,
+      transparent 11%, transparent 17%,
+      rgba(170, 200, 133, 0.35) 17%, rgba(170, 200, 133, 0.35) 22%,
+      transparent 22%, transparent 28%,
+      rgba(170, 200, 133, 0.15) 28%, rgba(170, 200, 133, 0.15) 33%,
+      transparent 33%, transparent 39%,
+      rgba(170, 200, 133, 0.45) 39%, rgba(170, 200, 133, 0.45) 44%,
+      transparent 44%, transparent 50%,
+      rgba(170, 200, 133, 0.3) 50%, rgba(170, 200, 133, 0.3) 55%,
+      transparent 55%, transparent 61%,
+      rgba(170, 200, 133, 0.5) 61%, rgba(170, 200, 133, 0.5) 66%,
+      transparent 66%, transparent 72%,
+      rgba(170, 200, 133, 0.25) 72%, rgba(170, 200, 133, 0.25) 77%,
+      transparent 77%, transparent 83%,
+      rgba(170, 200, 133, 0.55) 83%, rgba(170, 200, 133, 0.55) 88%,
+      transparent 88%
     );
 }
 
-.mockup-table-row {
-  height: 14px;
-  background: #f0f0f0;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  position: relative;
-  overflow: hidden;
-}
-
-.mockup-table-row::before {
-  content: '';
-  position: absolute;
-  left: 8px;
-  top: 4px;
-  width: 6px;
-  height: 6px;
-  background: var(--wine);
-  border-radius: 50%;
-  opacity: 0.3;
-}
-
-.mockup-table-row:nth-child(odd) { width: 100%; }
-.mockup-table-row:nth-child(even) { width: 85%; }
-
-/* Casa mockup */
+/* --- Casa mockup specifics --- */
 .mockup-casa {
-  background: #fafafa;
+  background: #111;
 }
 
-.mockup-header-bar {
-  height: 16px;
-  background: var(--wine);
-  border-radius: 4px;
-  margin-bottom: 20px;
-  width: 55%;
+.mockup-casa .mockup-main {
+  background: #1a1a1a;
 }
 
-.mockup-wine-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.mockup-casa .mockup-page-title {
+  background: #444;
 }
 
-.mockup-wine-card {
-  height: 120px;
-  background: var(--white);
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+.mockup-casa .mockup-section-title {
+  background: #444;
+}
+
+.mockup-casa .mockup-stat-box {
+  background: #222;
+  border-color: #333;
+}
+
+.mockup-casa .mockup-stat-box::before {
+  background: #444;
+}
+
+.mockup-casa .mockup-table {
+  background: #222;
+  border-color: #333;
+}
+
+.mockup-casa .mockup-table-header {
+  background: #2a2a2a;
+  border-color: #333;
+}
+
+.mockup-casa .mockup-table-row {
+  border-color: #2a2a2a;
+}
+
+.mockup-casa .mockup-table-row::before {
+  background: #3a3a3a;
+}
+
+.mockup-casa .mockup-table-row::after {
+  background: rgba(170, 200, 133, 0.15);
+}
+
+/* Mais vendidos */
+.mockup-vendidos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mockup-vendido-item {
+  height: 36px;
+  background: #222;
+  border-radius: 10px;
+  border: 1px solid #333;
   position: relative;
-  overflow: hidden;
 }
 
-.mockup-wine-card::before {
+.mockup-vendido-item::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60%;
-  background: linear-gradient(135deg, rgba(100, 19, 47, 0.06), rgba(133, 72, 94, 0.06));
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 6px;
+  background: #3a3a3a;
+  border-radius: 3px;
 }
 
-.mockup-wine-card::after {
+.mockup-vendido-item::after {
   content: '';
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
-  height: 8px;
-  background: #eee;
-  border-radius: 4px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18%;
+  height: 6px;
+  background: rgba(100, 19, 47, 0.4);
+  border-radius: 3px;
 }
 
 /* ---------- Timeline (Jornada) ---------- */
@@ -1111,8 +1356,17 @@ textarea:focus-visible {
 
 /* ---------- Contact CTA ---------- */
 .cta-block {
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px 44px;
+  box-shadow: 0 8px 40px rgba(100, 19, 47, 0.08);
+}
+
+.cta-block .section-subtitle {
+  margin-bottom: 0.5rem;
 }
 
 .contact-buttons {
@@ -1120,7 +1374,7 @@ textarea:focus-visible {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  margin-top: 2.5rem;
+  margin-top: 0;
 }
 
 .contact-buttons .btn-outline-wine {
@@ -1132,28 +1386,154 @@ textarea:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 1.5rem;
+  margin-top: 0;
   padding: 14px 28px;
-  background: #25D366;
+  background: #1a9e4b;
   color: #fff;
   border-radius: var(--radius-btn);
   font-weight: 600;
   font-size: 0.9375rem;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   border: none;
   cursor: pointer;
 }
 
 .whatsapp-cta:hover {
-  background: #1fb855;
+  background: #157a3b;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 4px 12px rgba(26, 158, 75, 0.3);
   color: #fff;
 }
 
 .whatsapp-cta svg {
   width: 20px;
   height: 20px;
+}
+
+/* ---------- Contact Form ---------- */
+.contact-form {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--wine);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #e0d6d9;
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: #faf8f8;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  outline: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #b0a5a8;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--wine);
+  box-shadow: 0 0 0 3px rgba(100, 19, 47, 0.08);
+  background: var(--white);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.form-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  padding: 15px 24px;
+  font-size: 1rem;
+  margin-top: 4px;
+  border-radius: var(--radius);
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Formspree state messages */
+.form-feedback {
+  display: none;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+}
+
+.form-feedback.success {
+  color: var(--sage-dark);
+  background: rgba(170, 200, 133, 0.15);
+  border: 1px solid rgba(170, 200, 133, 0.35);
+}
+
+.form-feedback.error {
+  color: #7b1a1a;
+  background: rgba(100, 19, 47, 0.06);
+  border: 1px solid rgba(100, 19, 47, 0.15);
+}
+
+/* Field-level error text */
+.field-error {
+  display: block;
+  font-size: 0.8125rem;
+  color: #c0392b;
+  margin-top: 3px;
+  min-height: 1em;
+}
+
+.contact-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 2rem 0 1.5rem;
+  color: var(--mauve);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.contact-divider::before,
+.contact-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e0d6d9, transparent);
 }
 
 /* ---------- Back to Top ---------- */
@@ -1476,10 +1856,11 @@ textarea:focus-visible {
 
   .check-list { margin: 1rem 0 1.5rem; }
 
-  .mockup-content { min-height: 220px; padding: 14px; }
-  .mockup-wine-card { height: 90px; }
-  .mockup-stat-box { height: 44px; }
-  .mockup-chart { height: 70px; }
+  .mockup-content { min-height: 240px; }
+  .mockup-sidebar { width: 48px; padding: 8px 6px; }
+  .mockup-stats-row { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .mockup-stat-box { height: 40px; }
+  .mockup-body-grid { grid-template-columns: 1fr; }
 
   .timeline-step { padding: 0 8px; }
   .timeline-number {
@@ -1498,8 +1879,12 @@ textarea:focus-visible {
     padding: 10px 20px;
   }
 
-  .cta-block { padding: 0 8px; }
+  .cta-block {
+    padding: 32px 20px;
+  }
   .cta-block h2 { font-size: 1.5rem; }
+
+  .form-row { grid-template-columns: 1fr; }
 
   .contact-buttons { margin-top: 2rem; }
 
@@ -1560,4 +1945,6 @@ textarea:focus-visible {
   .chat-msg { font-size: 0.75rem; padding: 8px 12px; }
   .chat-header { padding: 12px 16px; }
   .chat-input { padding: 12px 16px; }
+
+  .cta-block { padding: 24px 16px; }
 }

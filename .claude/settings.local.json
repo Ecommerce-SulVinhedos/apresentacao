@@ -6,7 +6,9 @@
       "Bash(ls -la \"C:/Vinery/Site-Apresentacao-Vinery/assets/\"*ashboard* \"C:/Vinery/Site-Apresentacao-Vinery/\"*ashboard*)",
       "Bash(ls -la \"C:/Vinery/Site-Apresentacao-Vinery/assets/\"*ADMIN* \"C:/Vinery/Site-Apresentacao-Vinery/\"*ADMIN*)",
       "Bash(ls -la \"C:/Vinery/Site-Apresentacao-Vinery/assets/\"*.png \"C:/Vinery/Site-Apresentacao-Vinery/assets/\"*.PNG)",
-      "Bash(identify \"C:/Vinery/Site-Apresentacao-Vinery/assets/dashboardADMIN.png\")"
+      "Bash(identify \"C:/Vinery/Site-Apresentacao-Vinery/assets/dashboardADMIN.png\")",
+      "WebFetch(domain:localhost)",
+      "Bash(node:*)"
     ]
   }
 }
