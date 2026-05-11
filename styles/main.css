@@ -613,6 +613,7 @@ textarea:focus-visible {
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-top: 3rem;
+  align-items: start;
 }
 
 .feature-card {
@@ -653,6 +654,88 @@ textarea:focus-visible {
 .feature-card p {
   margin-bottom: 0;
   font-size: 0.9375rem;
+}
+
+/* ---------- Expandable Feature Cards ---------- */
+.feature-expandable {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.feature-card-header {
+  position: relative;
+}
+
+.feature-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--wine);
+  opacity: 0.5;
+  transition: opacity 0.25s ease;
+}
+
+.feature-hint svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.feature-expandable:hover .feature-hint {
+  opacity: 0.8;
+}
+
+.feature-expandable.expanded .feature-hint {
+  opacity: 1;
+}
+
+.feature-expandable.expanded .feature-hint svg {
+  transform: rotate(180deg);
+}
+
+.feature-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.feature-expandable.expanded .feature-details {
+  opacity: 1;
+}
+
+.feature-detail-list {
+  padding-top: 16px;
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-detail-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+.feature-detail-list li svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--sage-dark);
+  margin-top: 1px;
+}
+
+.feature-expandable.expanded {
+  box-shadow: 0 12px 40px rgba(100, 19, 47, 0.14);
+  border-color: rgba(100, 19, 47, 0.15);
 }
 
 /* ---------- Check List ---------- */
