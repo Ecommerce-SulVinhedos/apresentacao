@@ -190,13 +190,13 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.feature-expandable.expanded').forEach(function (openCard) {
         if (openCard !== card) {
           openCard.classList.remove('expanded');
-          openCard.querySelector('.feature-details').style.maxHeight = null;
+          openCard.querySelector('.feature-details').style.removeProperty('max-height');
         }
       });
 
       if (isExpanded) {
         this.classList.remove('expanded');
-        details.style.maxHeight = null;
+        details.style.removeProperty('max-height');
       } else {
         this.classList.add('expanded');
         details.style.maxHeight = details.scrollHeight + 'px';

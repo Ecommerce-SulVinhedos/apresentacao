@@ -723,7 +723,6 @@ textarea:focus-visible {
 
 .feature-details {
   max-height: 0;
-  height: 0;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
@@ -731,7 +730,6 @@ textarea:focus-visible {
 }
 
 .feature-expandable.expanded .feature-details {
-  height: auto;
   opacity: 1;
   visibility: visible;
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0s 0s;
