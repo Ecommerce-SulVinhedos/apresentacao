@@ -181,45 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
   animateChatMessages();
 
   // ---------- Expandable Feature Cards ----------
-  var featureCards = document.querySelectorAll('.feature-expandable');
-
-  // Equalize card heights so all closed cards match the tallest
-  function equalizeFeatureCards() {
-    var maxHeight = 0;
-    // Reset first
-    featureCards.forEach(function (card) {
-      card.style.minHeight = '';
-    });
-    // Measure tallest closed header
-    featureCards.forEach(function (card) {
-      if (!card.classList.contains('expanded')) {
-        var h = card.querySelector('.feature-card-header').offsetHeight;
-        if (h > maxHeight) maxHeight = h;
-      }
-    });
-    // Apply (header height + card padding)
-    if (maxHeight > 0) {
-      var cardStyle = getComputedStyle(featureCards[0]);
-      var paddingTop = parseFloat(cardStyle.paddingTop) || 0;
-      var paddingBottom = parseFloat(cardStyle.paddingBottom) || 0;
-      var totalMin = maxHeight + paddingTop + paddingBottom;
-      featureCards.forEach(function (card) {
-        if (!card.classList.contains('expanded')) {
-          card.style.minHeight = totalMin + 'px';
-        }
-      });
-    }
-  }
-
-  // Run after fonts load for accurate measurement
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(equalizeFeatureCards);
-  } else {
-    window.addEventListener('load', equalizeFeatureCards);
-  }
-  window.addEventListener('resize', equalizeFeatureCards);
-
-  featureCards.forEach(function (card) {
+  document.querySelectorAll('.feature-expandable').forEach(function (card) {
     card.addEventListener('click', function () {
       var details = this.querySelector('.feature-details');
       var isExpanded = this.classList.contains('expanded');
@@ -229,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (openCard !== card) {
           openCard.classList.remove('expanded');
           openCard.querySelector('.feature-details').style.maxHeight = null;
-          openCard.style.minHeight = '';
         }
       });
 
@@ -238,13 +199,9 @@ document.addEventListener('DOMContentLoaded', function () {
         details.style.maxHeight = null;
       } else {
         this.classList.add('expanded');
-        this.style.minHeight = '';
         details.style.maxHeight = details.scrollHeight + 'px';
         if (window.lucide) lucide.createIcons();
       }
-
-      // Re-equalize the non-expanded cards
-      equalizeFeatureCards();
     });
   });
 
