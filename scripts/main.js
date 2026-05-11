@@ -181,29 +181,29 @@ document.addEventListener('DOMContentLoaded', function () {
   animateChatMessages();
 
   // ---------- Expandable Feature Cards ----------
-  document.querySelectorAll('.feature-expandable').forEach(function (card) {
-    card.addEventListener('click', function () {
-      var details = this.querySelector('.feature-details');
-      var isExpanded = this.classList.contains('expanded');
+  var featuresGrid = document.querySelector('.features-grid');
+  if (featuresGrid) {
+    featuresGrid.addEventListener('click', function (e) {
+      var card = e.target.closest('.feature-expandable');
+      if (!card) return;
 
-      // Close all other cards
-      document.querySelectorAll('.feature-expandable.expanded').forEach(function (openCard) {
-        if (openCard !== card) {
-          openCard.classList.remove('expanded');
-          openCard.querySelector('.feature-details').style.removeProperty('max-height');
-        }
+      var details = card.querySelector('.feature-details');
+      var wasExpanded = card.classList.contains('expanded');
+
+      // Close ALL cards
+      document.querySelectorAll('.feature-expandable').forEach(function (c) {
+        c.classList.remove('expanded');
+        c.querySelector('.feature-details').style.maxHeight = '';
       });
 
-      if (isExpanded) {
-        this.classList.remove('expanded');
-        details.style.removeProperty('max-height');
-      } else {
-        this.classList.add('expanded');
+      // Open clicked card only if it wasn't already open
+      if (!wasExpanded) {
+        card.classList.add('expanded');
         details.style.maxHeight = details.scrollHeight + 'px';
         if (window.lucide) lucide.createIcons();
       }
     });
-  });
+  }
 
   // ---------- Lightbox for Screenshots ----------
   var lightbox = document.getElementById('lightbox');
