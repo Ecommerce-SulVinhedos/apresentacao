@@ -637,6 +637,7 @@ textarea:focus-visible {
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  align-items: start;
   gap: 24px;
   margin-top: 3rem;
 }
@@ -762,7 +763,6 @@ textarea:focus-visible {
 }
 
 .feature-expandable.expanded {
-  align-self: start;
   box-shadow: 0 12px 40px rgba(100, 19, 47, 0.14);
   border-color: rgba(100, 19, 47, 0.15);
 }
