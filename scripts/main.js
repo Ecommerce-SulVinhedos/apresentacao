@@ -248,6 +248,39 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Escape' && lightbox.classList.contains('active')) {
       closeLightbox();
     }
+    if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+      closeVideoModal();
+    }
   });
+
+  // ---------- Video Modal (Sommelier) ----------
+  var videoModal = document.getElementById('videoModal');
+  var videoPlayer = document.getElementById('videoPlayer');
+  var btnVideoSommelier = document.getElementById('btnVideoSommelier');
+
+  function openVideoModal() {
+    videoModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    videoPlayer.play();
+  }
+
+  function closeVideoModal() {
+    videoModal.classList.remove('active');
+    document.body.style.overflow = '';
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
+  }
+
+  if (btnVideoSommelier) {
+    btnVideoSommelier.addEventListener('click', openVideoModal);
+  }
+
+  videoModal.addEventListener('click', function (e) {
+    if (e.target === videoModal) {
+      closeVideoModal();
+    }
+  });
+
+  videoModal.querySelector('.lightbox-close').addEventListener('click', closeVideoModal);
 
 });
