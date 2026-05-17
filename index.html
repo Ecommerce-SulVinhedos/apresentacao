@@ -414,7 +414,10 @@
           <span class="badge" data-aos="fade-up">Inteligência Artificial</span>
           <h2 class="section-title-light">Recomendações personalizadas com Inteligência Artificial</h2>
           <p class="text-cream">O Vinery conta com um Sommelier I.A. integrado &mdash; uma inteligência artificial que conversa com o cliente, entende seus gostos e recomenda vinhos sob medida. Uma experiência que vai além do e-commerce comum.</p>
-          <a href="#contato" class="btn btn-outline">Ver como funciona</a>
+          <button class="btn btn-outline" id="btnVideoSommelier" type="button">
+            <i data-lucide="play-circle"></i>
+            Ver como funciona
+          </button>
         </div>
         <div class="sommelier-visual" data-aos="fade-left">
           <div class="chat-widget" id="chatWidget">
@@ -536,6 +539,16 @@
   <div class="lightbox-overlay" id="lightbox">
     <button class="lightbox-close" aria-label="Fechar">&times;</button>
     <img src="" alt="" class="lightbox-img" id="lightboxImg">
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal-overlay" id="videoModal">
+    <button class="lightbox-close" aria-label="Fechar">&times;</button>
+    <div class="video-modal-content">
+      <video id="videoPlayer" controls playsinline>
+        <source src="IaSommelier.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 
   <!-- Back to Top -->
